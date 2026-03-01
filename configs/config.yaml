@@ -1,0 +1,40 @@
+# @package _global_
+defaults:
+  - model: wav2vec2
+  - data: common_voice
+  - training: default
+  - _self_
+
+# Project settings
+project_name: "low-resource-speech-recognition"
+version: "0.1.0"
+seed: 42
+
+# Paths
+paths:
+  data_dir: "data"
+  output_dir: "outputs"
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
+
+# Device configuration
+device: auto  # auto, cuda, mps, cpu
+
+# Logging
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: null  # Set to path for file logging
+  wandb:
+    enabled: false
+    project: "low-resource-asr"
+    entity: null
+  tensorboard:
+    enabled: true
+    log_dir: "logs/tensorboard"
+
+# Privacy settings
+privacy:
+  anonymize_filenames: true
+  log_sanitization: true
+  data_retention_days: 30

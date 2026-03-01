@@ -1,0 +1,81 @@
+# @package data
+_target_: src.data.dataset.SyntheticDataset
+
+# Dataset configuration
+dataset_name: "synthetic"
+num_samples: 1000
+sample_rate: 16000
+duration_range: [1.0, 5.0]
+vocab_size: 1000
+
+# Data paths
+paths:
+  data_dir: "data/synthetic"
+  cache_dir: "data/cache"
+  meta_file: "meta.csv"
+  audio_dir: "wav"
+
+# Audio preprocessing
+audio:
+  sample_rate: 16000
+  max_duration: 20.0
+  min_duration: 0.5
+  normalize: true
+  preemphasis: 0.97
+
+# Feature extraction
+features:
+  feature_type: "raw"  # raw, log_mel, mfcc
+  n_mels: 80
+  n_fft: 1024
+  hop_length: 256
+  win_length: 1024
+  window: "hann"
+  fmin: 0
+  fmax: 8000
+  center: true
+  pad_mode: "reflect"
+
+# Data augmentation
+augmentation:
+  enabled: false  # Disabled for synthetic data
+  spec_augment:
+    enabled: false
+    time_mask_param: 27
+    freq_mask_param: 12
+    num_time_mask: 2
+    num_freq_mask: 2
+  speed_perturbation:
+    enabled: false
+    speeds: [0.9, 1.0, 1.1]
+  pitch_shift:
+    enabled: false
+    n_steps: [-2, -1, 0, 1, 2]
+  noise_injection:
+    enabled: false
+    noise_factor: 0.01
+    noise_dir: "data/noise"
+
+# Data splits
+splits:
+  train: 0.8
+  validation: 0.1
+  test: 0.1
+  stratify_by: "speaker_id"
+
+# Data loading
+dataloader:
+  batch_size: 8
+  num_workers: 4
+  pin_memory: true
+  shuffle: true
+  drop_last: true
+  collate_fn: "dynamic_batching"
+
+# Text processing
+text:
+  lowercase: true
+  remove_punctuation: false
+  normalize_unicode: true
+  max_length: 200
+  min_length: 1

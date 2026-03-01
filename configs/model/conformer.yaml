@@ -1,0 +1,38 @@
+# @package model
+_target_: src.models.conformer.ConformerASR
+
+# Model architecture
+architecture:
+  input_dim: 80
+  encoder_dim: 512
+  num_encoder_layers: 17
+  num_attention_heads: 8
+  feed_forward_expansion_factor: 4
+  conv_expansion_factor: 2
+  input_dropout_p: 0.1
+  feed_forward_dropout_p: 0.1
+  attention_dropout_p: 0.1
+  conv_dropout_p: 0.1
+  conv_kernel_size: 31
+  half_step_residual: true
+  max_length: 5000
+
+# Decoder
+decoder:
+  decoder_dim: 512
+  num_decoder_layers: 6
+  num_attention_heads: 8
+  feed_forward_expansion_factor: 4
+  dropout_p: 0.1
+
+# CTC and Attention
+ctc_weight: 0.3
+attention_weight: 0.7
+label_smoothing: 0.1
+
+# Vocabulary
+vocab_size: 5000
+blank_id: 0
+sos_id: 1
+eos_id: 2
+pad_id: 3
